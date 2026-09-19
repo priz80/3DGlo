@@ -10,7 +10,6 @@ const modal = () => {
 
   const isMobile = () => window.innerWidth < MOBILE_BREAKPOINT;
 
-  // Плавное изменение прозрачности и масштаба через requestAnimationFrame
   const animate = ({ from, to, duration, onUpdate, onComplete }) => {
     const startTime = performance.now();
 
@@ -22,7 +21,6 @@ const modal = () => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
 
-      // easeOutQuad для более плавного эффекта
       const eased = 1 - (1 - progress) * (1 - progress);
 
       const value = from + (to - from) * eased;
@@ -43,7 +41,6 @@ const modal = () => {
     modal.style.display = 'block';
 
     if (isMobile()) {
-      // На мобильных анимация отключена — сразу показываем
       modal.style.opacity = '1';
       modal.style.transform = 'scale(1)';
       return;
@@ -65,7 +62,6 @@ const modal = () => {
 
   const closeModal = () => {
     if (isMobile()) {
-      // На мобильных анимация отключена — сразу скрываем
       modal.style.display = 'none';
       return;
     }
