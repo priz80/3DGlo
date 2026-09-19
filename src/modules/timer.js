@@ -28,7 +28,7 @@ const timer = (deadLine) => {
   };
 
   const updateClock = () => {
-    console.log("tick");
+    // console.log("tick");
 
     let getTime = getTimeRemaining();
 
