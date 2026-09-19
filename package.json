@@ -1,0 +1,22 @@
+{
+  "name": "3dglo",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Igor",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "watch": "webpack --watch --mode=development",
+    "start": "webpack serve --mode=development --open"
+  },
+  "devDependencies": {
+    "@babel/core": "^8.0.6",
+    "@babel/preset-env": "^8.0.6",
+    "babel-loader": "^10.1.1",
+    "webpack": "^5.111.1",
+    "webpack-cli": "^7.2.3",
+    "webpack-dev-server": "^6.0.0"
+  }
+}
