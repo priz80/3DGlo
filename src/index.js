@@ -5,6 +5,7 @@ import scroll from "./modules/scroll";
 import calc from "./modules/calc";
 import submit from "./modules/submit";
 import tabs from "./modules/tabs";
+import slider from "./modules/slider";
 
 timer("17 october 2026");
 menu();
@@ -13,3 +14,4 @@ scroll();
 calc();
 submit();
 tabs();
+slider();
