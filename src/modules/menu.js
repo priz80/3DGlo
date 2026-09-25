@@ -1,27 +1,26 @@
 const menu = () => {
   const menuBtn = document.querySelector(".menu");
-  const menu = document.querySelector("menu");
+  const menuEl = document.querySelector("menu");
 
-  if (!menuBtn || !menu) return;
+  if (!menuBtn || !menuEl) return;
 
-  // Обработчик 1: открытие/закрытие меню (бургер + крестик + пункты)
-  menu.addEventListener("click", (e) => {
-    // Клик по крестику — закрыть меню
-    if (e.target.closest(".close-btn")) {
-      menu.classList.remove("active-menu");
-      return;
-    }
-
-    // Клик по пунктам меню — закрыть меню
-    if (e.target.closest("menu ul li a")) {
-      menu.classList.remove("active-menu");
-      return;
-    }
+  // Обработчик 1: бургер — toggle active-menu
+  menuBtn.addEventListener("click", () => {
+    menuEl.classList.toggle("active-menu");
   });
 
-  // Обработчик 2: клик по бургеру — открыть/закрыть меню
-  menuBtn.addEventListener("click", () => {
-    menu.classList.toggle("active-menu");
+  // Обработчик 2: делегирование — закрытие меню
+  document.addEventListener("click", (e) => {
+    // Клик по .close-btn или li — закрыть меню
+    if (e.target.closest(".close-btn, li")) {
+      menuEl.classList.remove("active-menu");
+      return;
+    }
+
+    // Клик вне menu и вне бургера — закрыть только если открыто
+    if (!e.target.closest("menu") && !e.target.closest(".menu") && menuEl.classList.contains("active-menu")) {
+      menuEl.classList.remove("active-menu");
+    }
   });
 };
 
