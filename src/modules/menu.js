@@ -1,19 +1,28 @@
 const menu = () => {
   const menuBtn = document.querySelector(".menu");
-  const closeBtn = document.querySelector(".close-btn");
   const menu = document.querySelector("menu");
-  const menuItems = menu.querySelectorAll("ul>li>a");
 
-  const handleMenu = () => {
+  if (!menuBtn || !menu) return;
+
+  // Обработчик 1: открытие/закрытие меню (бургер + крестик + пункты)
+  menu.addEventListener("click", (e) => {
+    // Клик по крестику — закрыть меню
+    if (e.target.closest(".close-btn")) {
+      menu.classList.remove("active-menu");
+      return;
+    }
+
+    // Клик по пунктам меню — закрыть меню
+    if (e.target.closest("menu ul li a")) {
+      menu.classList.remove("active-menu");
+      return;
+    }
+  });
+
+  // Обработчик 2: клик по бургеру — открыть/закрыть меню
+  menuBtn.addEventListener("click", () => {
     menu.classList.toggle("active-menu");
-  };
-
-  menuBtn.addEventListener("click", handleMenu);
-
-  closeBtn.addEventListener("click", handleMenu);
-
-  menuItems.forEach((menuItem) =>
-    menuItem.addEventListener("click", handleMenu),
-  );
+  });
 };
+
 export default menu;
