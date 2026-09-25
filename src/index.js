@@ -15,5 +15,12 @@ scroll();
 calc();
 submit();
 tabs();
-slider();
-dot();
+dot({
+  slideClass: '.portfolio-item',
+  dotClass: '.dot',
+});
+slider({
+  sliderBlockClass: ".portfolio-content",
+  slideClass: ".portfolio-item",
+  dotClass: ".dot",
+});
