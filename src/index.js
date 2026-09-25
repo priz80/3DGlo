@@ -6,6 +6,7 @@ import calc from "./modules/calc";
 import submit from "./modules/submit";
 import tabs from "./modules/tabs";
 import slider from "./modules/slider";
+import dot from "./modules/dot";
 
 timer("17 october 2026");
 menu();
@@ -15,3 +16,4 @@ calc();
 submit();
 tabs();
 slider();
+dot();

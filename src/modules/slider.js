@@ -1,20 +1,20 @@
 const slider = () => {
   const sliderBlock = document.querySelector(".portfolio-content");
   const slides = document.querySelectorAll(".portfolio-item");
-  const dots = document.querySelectorAll(".dot");
   const timeInterval = 2000;
 
   let currentSlide = 0;
   let interval;
 
   const prevSlide = (elems, index, strClass) => {
-    elems[index].classList.remove(strClass);
+    if (elems[index]) elems[index].classList.remove(strClass);
   };
   const nextSlide = (elems, index, strClass) => {
-    elems[index].classList.add(strClass);
+    if (elems[index]) elems[index].classList.add(strClass);
   };
 
   const autoSlide = () => {
+    const dots = document.querySelectorAll(".dot");
     prevSlide(slides, currentSlide, "portfolio-item-active");
     prevSlide(dots, currentSlide, "dot-active");
     currentSlide++;
@@ -41,6 +41,7 @@ const slider = () => {
       return;
     }
 
+    const dots = document.querySelectorAll(".dot");
     prevSlide(slides, currentSlide, "portfolio-item-active");
     prevSlide(dots, currentSlide, "dot-active");
 
@@ -90,4 +91,4 @@ const slider = () => {
   startSlide(timeInterval);
 };
 
-export default slider();
+export default slider;
