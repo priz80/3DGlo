@@ -6,6 +6,23 @@ const calc = (price = 100) => {
   const calcDay = document.querySelector(".calc-day");
   const total = document.getElementById("total");
 
+  const animateTotal = (from, to) => {
+    const duration = 500;
+    const start = performance.now();
+
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const current = Math.round(from + (to - from) * progress);
+      total.textContent = current;
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    requestAnimationFrame(step);
+  };
+
   const countCalc = () => {
     const calcTypeValue = +calcType.options[calcType.selectedIndex].value;
     const calcSquareValue = calcSquare.value;
@@ -31,7 +48,8 @@ const calc = (price = 100) => {
       totalValue = 0;
     }
 
-    total.textContent = totalValue;
+    const currentTotal = parseInt(total.textContent, 10) || 0;
+    animateTotal(currentTotal, totalValue);
   };
 
   calcBlock.addEventListener("input", (e) => {
