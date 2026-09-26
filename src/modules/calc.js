@@ -1,3 +1,5 @@
+import { animateTotal } from "./helpers.js";
+
 const calc = (price = 100) => {
   const calcBlock = document.querySelector(".calc-block");
   const calcType = document.querySelector(".calc-type");
@@ -5,23 +7,6 @@ const calc = (price = 100) => {
   const calcCount = document.querySelector(".calc-count");
   const calcDay = document.querySelector(".calc-day");
   const total = document.getElementById("total");
-
-  const animateTotal = (from, to) => {
-    const duration = 500;
-    const start = performance.now();
-
-    const step = (now) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const current = Math.round(from + (to - from) * progress);
-      total.textContent = current;
-
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      }
-    };
-
-    requestAnimationFrame(step);
-  };
 
   const countCalc = () => {
     const calcTypeValue = +calcType.options[calcType.selectedIndex].value;
@@ -49,7 +34,7 @@ const calc = (price = 100) => {
     }
 
     const currentTotal = parseInt(total.textContent, 10) || 0;
-    animateTotal(currentTotal, totalValue);
+    animateTotal(total, currentTotal, totalValue);
   };
 
   calcBlock.addEventListener("input", (e) => {

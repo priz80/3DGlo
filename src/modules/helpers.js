@@ -21,4 +21,20 @@ const animate = ({timing, draw, duration, complete}) => {
   });
 }
 
-export { animate }
+const animateTotal = (element, from, to, duration = 500) => {
+  const start = performance.now();
+
+  const step = (now) => {
+    const progress = Math.min((now - start) / duration, 1);
+    const current = Math.round(from + (to - from) * progress);
+    element.textContent = current;
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    }
+  };
+
+  requestAnimationFrame(step);
+};
+
+export { animate, animateTotal };
