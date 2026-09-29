@@ -8,6 +8,7 @@ import tabs from "./modules/tabs";
 import slider from "./modules/slider";
 import dot from "./modules/dot";
 import calc from "./modules/calc";
+import sendForm from "./modules/sendForm";
 
 timer("17 october 2026");
 menu();
@@ -26,3 +27,13 @@ slider({
   dotClass: ".dot",
 });
 calc(100);
+sendForm({
+  formId: 'form1',
+  formId: 'form3',
+  calcForm: [
+    {
+      type: 'block',
+      id: 'total'
+    }
+  ]
+});
