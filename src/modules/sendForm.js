@@ -1,20 +1,32 @@
+import "../scss/spinkit.scss";
+
 const sendForm = ({ formId, calcForm = [] }) => {
   const form = document.getElementById(formId);
   const statusBlock = document.createElement("div");
-  const loadText = "Загрузка...";
   const errorText = "Ошибка...";
   const successText = "Спсибо! Наш менеджер свяжется с вами!";
 
   const validate = (list) => {
     let success = true;
 
-    // list.forEach((input) => {
-    //   if (!input.classList.contains("success")) {
-    //     success = false;
-    //   }
-    // });
     return success;
   };
+
+  const spin = () => {
+  const section = document.createElement('section');
+
+  const circleBounce = document.createElement('div');
+  circleBounce.className = 'sk-circle-bounce';
+
+  for (let i = 1; i <= 12; i++) {
+    const child = document.createElement('div');
+    child.className = `sk-child sk-circle-${i}`;
+    circleBounce.appendChild(child);
+  }
+
+  section.appendChild(circleBounce);
+  return section;
+};
 
   const sendData = (data) => {
     return fetch("https://jsonplaceholder.typicode.com/posts", {
@@ -31,8 +43,11 @@ const sendForm = ({ formId, calcForm = [] }) => {
     const formData = new FormData(form);
     const formBody = {};
 
-    statusBlock.textContent = loadText;
-    form.append(statusBlock);
+
+  
+    
+    statusBlock.appendChild(spin());
+    form.appendChild(statusBlock);
 
     formData.forEach((val, key) => {
       formBody[key] = val;
@@ -51,14 +66,17 @@ const sendForm = ({ formId, calcForm = [] }) => {
     if (validate(formElements)) {
       sendData(formBody)
         .then((data) => {
+          const spinner = statusBlock.querySelector('section');
+          if (spinner) spinner.remove();
           statusBlock.textContent = successText;
-
-          formElements.forEach((input) => {
-            input.value = "";
-          });
+          statusBlock.style.color = '#4caf50';
+          form.reset();
         })
         .catch((error) => {
+          const spinner = statusBlock.querySelector('section');
+          if (spinner) spinner.remove();
           statusBlock.textContent = errorText;
+          statusBlock.style.color = '#f44336';
         });
     } else {
       alert("Данные не валидны!!!");

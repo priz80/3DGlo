@@ -1,17 +1,13 @@
+@use "sass:math";
+
 $spinkit-size: 4em !default;
 $spinkit-spinner-color: #19b5fe !default;
 
-body {
-  background-color: #1d1f20;
-  min-height: 100vh;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-content: space-around;
-}
-
 section {
-  flex: 1 1 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
 }
 
 .sk-circle-bounce {
@@ -44,13 +40,13 @@ section {
 
   @for $i from 2 through $circleCount {
     .sk-circle-#{$i} {
-      transform: rotate((360deg / $circleCount * ($i - 1)));
+      transform: rotate((math.div(360deg, $circleCount) * ($i - 1)));
     }
   }
 
   @for $i from 2 through $circleCount {
     .sk-circle-#{$i}:before {
-      animation-delay: (-$animationDuration + $animationDuration / $circleCount * ($i - 1));
+      animation-delay: (-$animationDuration + math.div($animationDuration, $circleCount) * ($i - 1));
     }
   }
 }

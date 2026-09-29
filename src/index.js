@@ -29,11 +29,14 @@ slider({
 calc(100);
 sendForm({
   formId: 'form1',
-  formId: 'form3',
   calcForm: [
     {
       type: 'block',
       id: 'total'
     }
   ]
+});
+
+sendForm({
+  formId: 'form3'
 });
