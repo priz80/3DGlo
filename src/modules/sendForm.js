@@ -3,7 +3,7 @@ import "../scss/spinkit.scss";
 const sendForm = ({ formId, totalValue = [] }) => {
   const form = document.getElementById(formId);
   const statusBlock = document.createElement("div");
-  const errorText = "Ошибка...";
+  const errorText = "Ошибка:";
   const successText = "Спасибо! Мы свяжемся с вами!";
   const mainForm = document.querySelector(".main-form > h3");
 
@@ -44,8 +44,7 @@ const sendForm = ({ formId, totalValue = [] }) => {
     const formData = new FormData(form);
     const formBody = {};
 
-    mainForm.innerHTML = '';
-    form.innerHTML = "";
+    
     statusBlock.appendChild(spin());
     form.appendChild(statusBlock);
 
@@ -55,7 +54,6 @@ const sendForm = ({ formId, totalValue = [] }) => {
 
     totalValue.forEach((elem) => {
       const element = document.getElementById(elem.id);
-      console.log(element);
       if (elem.type === "block") {
         formBody[elem.id] = element.textContent;
       } else if (elem.type === "input") {
@@ -71,12 +69,18 @@ const sendForm = ({ formId, totalValue = [] }) => {
           statusBlock.textContent = successText;
           statusBlock.style.color = "#19b5fe";
           statusBlock.style["fontWeight"] = "bold";
+          if (statusBlock.textContent === successText) {
+            mainForm.innerHTML = "";
+            form.removeChild(statusBlock);
+            form.innerHTML = "";
+            form.appendChild(statusBlock);
+          }
           form.reset();
         })
         .catch((error) => {
           const spinner = statusBlock.querySelector("section");
           if (spinner) spinner.remove();
-          statusBlock.textContent = errorText;
+          statusBlock.textContent = errorText + ' ' + error.message;
           statusBlock.style.color = "#f44336";
           statusBlock.style["fontWeight"] = "bold";
           form.reset();
