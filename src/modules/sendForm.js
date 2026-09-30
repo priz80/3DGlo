@@ -69,12 +69,9 @@ const sendForm = ({ formId, totalValue = [] }) => {
           statusBlock.textContent = successText;
           statusBlock.style.color = "#19b5fe";
           statusBlock.style["fontWeight"] = "bold";
-          if (statusBlock.textContent === successText) {
             mainForm.innerHTML = "";
-            form.removeChild(statusBlock);
             form.innerHTML = "";
             form.appendChild(statusBlock);
-          }
           form.reset();
         })
         .catch((error) => {
