@@ -4,7 +4,8 @@ const sendForm = ({ formId, calcForm = [] }) => {
   const form = document.getElementById(formId);
   const statusBlock = document.createElement("div");
   const errorText = "Ошибка...";
-  const successText = "Спсибо! Наш менеджер свяжется с вами!";
+  const successText = "Спасибо! Мы свяжемся с вами!";
+  const mainForm = document.querySelector(".main-form > h3");
 
   const validate = (list) => {
     let success = true;
@@ -13,20 +14,20 @@ const sendForm = ({ formId, calcForm = [] }) => {
   };
 
   const spin = () => {
-  const section = document.createElement('section');
+    const section = document.createElement("section");
 
-  const circleBounce = document.createElement('div');
-  circleBounce.className = 'sk-circle-bounce';
+    const circleBounce = document.createElement("div");
+    circleBounce.className = "sk-circle-bounce";
 
-  for (let i = 1; i <= 12; i++) {
-    const child = document.createElement('div');
-    child.className = `sk-child sk-circle-${i}`;
-    circleBounce.appendChild(child);
-  }
+    for (let i = 1; i <= 12; i++) {
+      const child = document.createElement("div");
+      child.className = `sk-child sk-circle-${i}`;
+      circleBounce.appendChild(child);
+    }
 
-  section.appendChild(circleBounce);
-  return section;
-};
+    section.appendChild(circleBounce);
+    return section;
+  };
 
   const sendData = (data) => {
     return fetch("https://jsonplaceholder.typicode.com/posts", {
@@ -43,9 +44,8 @@ const sendForm = ({ formId, calcForm = [] }) => {
     const formData = new FormData(form);
     const formBody = {};
 
-
-  
-    
+    mainForm.innerHTML = '';
+    form.innerHTML = "";
     statusBlock.appendChild(spin());
     form.appendChild(statusBlock);
 
@@ -66,17 +66,22 @@ const sendForm = ({ formId, calcForm = [] }) => {
     if (validate(formElements)) {
       sendData(formBody)
         .then((data) => {
-          const spinner = statusBlock.querySelector('section');
+          // form.innerHTML = '';
+          const spinner = statusBlock.querySelector("section");
           if (spinner) spinner.remove();
           statusBlock.textContent = successText;
-          statusBlock.style.color = '#4caf50';
+          statusBlock.style.color = "#19b5fe";
+          statusBlock.style["fontWeight"] = "bold";
           form.reset();
         })
         .catch((error) => {
-          const spinner = statusBlock.querySelector('section');
+          // form.innerHTML = '';
+          const spinner = statusBlock.querySelector("section");
           if (spinner) spinner.remove();
           statusBlock.textContent = errorText;
-          statusBlock.style.color = '#f44336';
+          statusBlock.style.color = "#f44336";
+          statusBlock.style["fontWeight"] = "bold";
+          form.reset();
         });
     } else {
       alert("Данные не валидны!!!");
@@ -84,16 +89,16 @@ const sendForm = ({ formId, calcForm = [] }) => {
   };
 
   try {
-    if(!form) {
-      throw new Error('Верните форму на место, пожалуйста ))!')
+    if (!form) {
+      throw new Error("Верните форму на место, пожалуйста ))!");
     }
     form.addEventListener("submit", (e) => {
-    e.preventDefault();
+      e.preventDefault();
 
-    submitForm();
-  });
-  } catch(error) {
-    console.log(error.message)
+      submitForm();
+    });
+  } catch (error) {
+    console.log(error.message);
   }
 };
 
