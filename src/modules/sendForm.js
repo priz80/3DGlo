@@ -1,6 +1,6 @@
 import "../scss/spinkit.scss";
 
-const sendForm = ({ formId, calcForm = [] }) => {
+const sendForm = ({ formId, totalValue = [] }) => {
   const form = document.getElementById(formId);
   const statusBlock = document.createElement("div");
   const errorText = "Ошибка...";
@@ -53,7 +53,7 @@ const sendForm = ({ formId, calcForm = [] }) => {
       formBody[key] = val;
     });
 
-    calcForm.forEach((elem) => {
+    totalValue.forEach((elem) => {
       const element = document.getElementById(elem.id);
       console.log(element);
       if (elem.type === "block") {
@@ -66,7 +66,6 @@ const sendForm = ({ formId, calcForm = [] }) => {
     if (validate(formElements)) {
       sendData(formBody)
         .then((data) => {
-          // form.innerHTML = '';
           const spinner = statusBlock.querySelector("section");
           if (spinner) spinner.remove();
           statusBlock.textContent = successText;
@@ -75,7 +74,6 @@ const sendForm = ({ formId, calcForm = [] }) => {
           form.reset();
         })
         .catch((error) => {
-          // form.innerHTML = '';
           const spinner = statusBlock.querySelector("section");
           if (spinner) spinner.remove();
           statusBlock.textContent = errorText;
